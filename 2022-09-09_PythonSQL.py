@@ -85,7 +85,7 @@ class Job_client:
        conn.commit()
        cursor.execute(""" SELECT id_client FROM client WHERE firstname_client = %s AND lastname_client = %s""",(var_first_name, var_last_name))
        var_test = cursor.fetchall()
-       var_id_client = var_test[0][0]
+       var_id_client = str(var_test[0][0])
        cursor.execute ("""INSERT INTO email(id_client, name_email) VALUES (%s, %s)""", (var_id_client, var_name_email))
        cursor.execute ("""INSERT INTO phono(id_client, number_phono) VALUES (%s, %s)""", (var_id_client, var_number_phono))
        conn.commit()
