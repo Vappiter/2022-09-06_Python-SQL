@@ -105,6 +105,7 @@ class Job_client:
      def __init__(self):
           pass
    
+     # Add client
      
      def add_client(self, cursor):
        var_first_name = input_firstname()  
@@ -121,7 +122,42 @@ class Job_client:
        conn.commit()
        print('Клиент добавлен')
        return TRUE
-
+  
+  # Аdd a phono to an existing client 
+  
+     def add_phono (self, cursor):
+          pass
+     
+ # Add a Email to an existing client
+ 
+     def add_email (self, cursor):
+          pass
+     
+ # Edit data existing client
+     
+     def edit_client(self, cursor):
+          pass
+     
+ # Delete a phono to an existing client 
+  
+     def delete_phono (self, cursor):
+          pass
+     
+ # Delete a Email to an existing client
+ 
+     def delete_email (self, cursor):
+          pass
+ 
+ # Delete existing client
+ 
+     def delete_client (self, cursor):
+          pass    
+     
+ # Search existing client
+ 
+     def search_client (self, cursor):
+          pass
+     
 # The main programm
 
 if __name__ == '__main__':
