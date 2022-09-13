@@ -1,6 +1,9 @@
 from pickle import TRUE
 import psycopg2
+import re
 
+RE_EMAIL = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+RE_PHONO = re.compile(r'^\(\d{3}\) \d{3}-\d{4}$')
 
 def enter_input(client_db):
   count_attempt = 5
@@ -35,10 +38,10 @@ def enter_input(client_db):
           print(f'Извините нажата неизвестная клавиша\n\
                Осталось {count_attempt} попыток! ;)')   
 
-
 # Function create tables
 
 def create_tab(cursor, name_tab):
+    
      if name_tab == 'client':
       cursor.execute("""
         CREATE TABLE IF NOT EXISTS client(
@@ -66,21 +69,48 @@ def create_tab(cursor, name_tab):
      else: print ('Таблица с таким именем не нужна')
      return           
 
+# Enter firstname
+
+def input_firstname():
+     var_input_firstname = input ('Введите имя клиента: ').title()
+     return var_input_firstname
+
+# Enter lastname
+
+def input_lastname():
+     var_input_lastname = input ('Введите фамилию клиента: ').title()
+     return var_input_lastname
+
+# Enter Email
+
+def input_email():
+     var_input_email = input ('Введите email клиента: ')
+     while re.fullmatch(RE_EMAIL, var_input_email) == None:
+         print("Введен не правильный формат Email. Формат str@str.str")
+         var_input_email = input ('Введите email клиента: ')
+     return var_input_email   
+          
+# Enter Phono
+
+def input_phono():
+     var_input_phono = input ('Введите телефон клиента: ')
+     while re.fullmatch(RE_PHONO, var_input_phono) == None:
+         print("Не правильный формат телефона. Формат (222) 222-2222")
+         var_input_phono = input ('Введите телефон клиента: ')
+     return var_input_phono          
+          
 # Class working with the database
 
 class Job_client:
      def __init__(self):
           pass
-     #   self.firstname_client = firstname_client
-     #   self.lastname_client = lastname_client
-     #   self.name_email = name_email
-     #   self.number_phono = number_phono
+   
      
      def add_client(self, cursor):
-       var_first_name = input ('Введите имя клиента: ').upper()  
-       var_last_name = input ('Введите фамилию клиента: ').upper()
-       var_name_email = input ('Введите email клиента: ').upper()
-       var_number_phono = input ('Введите телефон клиента: ').upper()
+       var_first_name = input_firstname()  
+       var_last_name = input_lastname()
+       var_name_email = input_email()
+       var_number_phono = input_phono()
        cursor.execute ("""INSERT INTO client(firstname_client, lastname_client) VALUES (%s, %s)""", (var_first_name, var_last_name))
        conn.commit()
        cursor.execute(""" SELECT id_client FROM client WHERE firstname_client = %s AND lastname_client = %s""",(var_first_name, var_last_name))
