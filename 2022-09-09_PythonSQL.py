@@ -213,13 +213,13 @@ class Job_client:
           var_input_switch = input().upper()
           if var_input_switch == 'Y':
            var_first_name = input_firstname()    
-           cursor.execute ("""UPDATE client SET firstname_client = %s) WHERE id_client = %s""", (var_first_name, var_id_client))
+           cursor.execute ("""UPDATE client SET firstname_client = %s WHERE id_client = %s""", (var_first_name, var_id_client))
            conn.commit()
            print (f'У клиента сейчас имя {var_lastname_client}. Будем редактировать Y/n')
           var_input_switch = input().upper()
           if var_input_switch == 'Y':
            var_last_name = input_lastname()    
-           cursor.execute ("""UPDATE client SET lastname_client = %s) WHERE id_client = %s""", (var_last_name, var_id_client))
+           cursor.execute ("""UPDATE client SET lastname_client = %s WHERE id_client = %s""", (var_last_name, var_id_client))
            conn.commit()
           return print(f'Редактирование имени и фамилии завершено')
           
